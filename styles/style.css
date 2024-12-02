@@ -3,15 +3,14 @@
     padding: 0;
     box-sizing: border-box;
     list-style: none;
-    
 }
 html{
     font-size: 62.5%;
     font-size: 1rem;
 }
 
-.search_input{
-    background-image: url("../images/Search.png");
+.search_icon{
+    background-image: url("../images/search.svg");
     background-repeat: no-repeat;
     background-position: 32px center;
 }

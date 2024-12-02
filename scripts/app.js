@@ -4,10 +4,12 @@ let elCountryList = document.querySelector(".list")
 
 
 function renderCountries(arr, list){
-     let elCountryItem = document.createElement("li")
-     elCountryItem.className = "w-[264px] rounded-md overflow-hidden bg-slate-200"
+     
+     
      
      arr.map(item => {
+        let elCountryItem = document.createElement("li")
+        elCountryItem.className = "w-[264px] rounded-md overflow-hidden bg-slate-200 mt-4"
         elCountryItem.innerHTML = `
            <img class="w-full h-[160px] object-cover" src=${item.flag} width="100" height="160" alt=${item.name}/>
            <div class="p-5"> 

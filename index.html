@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Countries</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./styles/style.css">
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -25,9 +25,28 @@
     <header class="w-[100%] h-[90px] drop-shadow-lg  bg-gray-100 p-8">
           <div class="flex justify-between items-center">
              <h1 class="text-xl font-bold">Where in the world?</h1>
-             
+             <div class="flex justify-between gap-2">
+                <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center">
+                    <strong>1</strong>
+                    <img src="./images/like.svg" alt="Like" width="22">
+                </button>
+                <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center">
+                    <strong>1</strong>
+                    <img src="./images/saved.svg" alt="Saved" width="25">
+                </button>
+                <button class="flex items-center justify-center">
+                    <img src="./images/moon.svg" alt="Like" width="25">
+                    <span>Dark Mode</span>
+                </button>
+             </div>
           </div>
     </header>
+
+    <main class="p-8">
+      <div class="flex items-center justify-between">
+          <input type="text" placeholder="Search for a country" class="search_input py-[18px] w-[480px] outline-none border-slate-300 rounded-md pl-[74px]">
+      </div>
+    </main>
 
     <script src="./scripts/countries.js"></script>
     <script src="./scripts/app.js"></script>

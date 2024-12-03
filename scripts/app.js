@@ -1,6 +1,6 @@
 let elCountryList = document.querySelector(".list")
 let elSelector = document.querySelector(".selector")
-
+let elInput = document.querySelector(".search_icon")
 
 
 // Render countries Part
@@ -60,3 +60,12 @@ elSelector.addEventListener("change", (event)=> {
     }
 })
 // Render Select Part
+
+
+// Search Part
+elInput.addEventListener("input", (event)=> {
+    const value = event.target.value.toLowerCase()
+    const searchedValue = countrys.filter(item => item.name.toLowerCase().includes(value) || item.capital.toLowerCase().includes(value))
+    renderCountries(searchedValue, elCountryList)
+})
+// Search Part

@@ -1,12 +1,10 @@
 let elCountryList = document.querySelector(".list")
+let elSelector = document.querySelector(".selector")
 
 
 
-
-function renderCountries(arr, list){
-     
-     
-     
+// Render countries Part
+function renderCountries(arr, list){ 
      arr.map(item => {
         let elCountryItem = document.createElement("li")
         elCountryItem.className = "w-[264px] rounded-md overflow-hidden bg-slate-200 mt-4"
@@ -36,3 +34,17 @@ function renderCountries(arr, list){
 }
 
 renderCountries(countrys, elCountryList)
+// Render countries Part
+
+
+function renderSelecPart(arr, list){
+   arr.map((item)=> {
+        let elOption = document.createElement("option")
+        elOption.innerHTML = `
+           <h2>${item.capital}</h2>
+        `
+        list.append(elOption)
+   })
+}
+
+renderSelecPart(countrys, elSelector)

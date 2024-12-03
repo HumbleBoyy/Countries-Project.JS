@@ -5,6 +5,7 @@ let elSelector = document.querySelector(".selector")
 
 // Render countries Part
 function renderCountries(arr, list){ 
+    list.innerHTML = null
      arr.map(item => {
         let elCountryItem = document.createElement("li")
         elCountryItem.className = "w-[264px] rounded-md overflow-hidden bg-slate-200 mt-4"
@@ -37,14 +38,25 @@ renderCountries(countrys, elCountryList)
 // Render countries Part
 
 
+// Render Select Part
 function renderSelecPart(arr, list){
-   arr.map((item)=> {
+   arr.forEach((item)=> {
         let elOption = document.createElement("option")
-        elOption.innerHTML = `
-           <h2>${item.capital}</h2>
-        `
+        elOption.textContent = item.capital
+        elOption.value = item.capital.toLowerCase()
         list.append(elOption)
    })
 }
 
 renderSelecPart(countrys, elSelector)
+
+elSelector.addEventListener("change", (event)=> {
+    
+    if(event.target.value === "all"){
+        renderCountries(countrys, elCountryList)
+    }else{
+        const result = countrys.filter(item => item.capital.toLowerCase() === event.target.value)
+        renderCountries(result, elCountryList)
+    }
+})
+// Render Select Part

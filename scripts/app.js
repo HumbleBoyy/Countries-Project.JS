@@ -86,7 +86,17 @@ function handleLikeBtn(id){
         elLikedCountWrapper.className = "w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-evenly"
     }
 }
+
+
+// Show Liked Items
+elLikedCountWrapper.addEventListener("click", ()=> {
+    const likedItems = countrys.filter((item)=> item.isLiked === true)
+    renderCountries(likedItems, elCountryList)
+})
+// Show Liked Items
+
 // Like buttons
+
 
 // Saved buttons
 function handleSavedBtn(id){
@@ -101,4 +111,10 @@ function handleSavedBtn(id){
         elsaved_count_wrapper.className = "w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-evenly"
     }
 }
+
+// Show Saved Items 
+elsaved_count_wrapper.addEventListener("click", ()=> {
+    const savedItems = countrys.filter((item)=> item.isBasket === true)
+    renderCountries(savedItems, elCountryList)    
+})
 // Saved buttons

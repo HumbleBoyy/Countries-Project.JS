@@ -1,7 +1,7 @@
 let elCountryList = document.querySelector(".list")
 let elSelector = document.querySelector(".selector")
 let elInput = document.querySelector(".search_icon")
-
+let elLikedCount = document.querySelector(".like_count")
 
 // Render countries Part
 function renderCountries(arr, list){ 
@@ -18,18 +18,17 @@ function renderCountries(arr, list){
            </div>
            
            <div class="flex items-center justify-between p-2">
-               <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center">
-                  <img src="./images/like.svg" alt="Like" width="25">
+               <button onclick="handleLikeBtn(${item.id})" class="${item.isLiked === true ? "bg-red-600 border-red-600" : ""} w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center"  title="Like">
+                  <i class="fa-solid fa-heart text-xl ${item.isLiked === true ? "text-white" : ""}"></i>
                </button>
-                <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center">
-                  <img src="./images/saved.svg" alt="Like" width="25">
+                <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Saved">
+                  <i class="fa-solid fa-bookmark  text-xl"></i>
                </button>
-                <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center">
-                  <img src="./images/more.svg" alt="Like" width="25">
+                <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Info">
+                  <i class="fa-solid fa-info text-xl"></i>
                </button>
            </div>
         `
-
         list.append(elCountryItem)
      })
 }
@@ -69,3 +68,10 @@ elInput.addEventListener("input", (event)=> {
     renderCountries(searchedValue, elCountryList)
 })
 // Search Part
+
+// Like buttons
+function handleLikeBtn(id){
+    const findLikedObj = countrys.find((item) => item.id === id)
+    findLikedObj.isLiked = !findLikedObj.isLiked
+    renderCountries(countrys, elCountryList)
+}

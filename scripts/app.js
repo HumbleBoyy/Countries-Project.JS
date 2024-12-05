@@ -2,6 +2,9 @@ let elCountryList = document.querySelector(".list")
 let elSelector = document.querySelector(".selector")
 let elInput = document.querySelector(".search_icon")
 let elLikedCount = document.querySelector(".like_count")
+let elLikedCountWrapper = document.querySelector(".like_count_wrapper")
+let elSavedCount = document.querySelector(".savedCount")
+let elsaved_count_wrapper = document.querySelector(".saved_count_wrapper")
 
 // Render countries Part
 function renderCountries(arr, list){ 
@@ -18,10 +21,10 @@ function renderCountries(arr, list){
            </div>
            
            <div class="flex items-center justify-between p-2">
-               <button onclick="handleLikeBtn(${item.id})" class="${item.isLiked === true ? "bg-red-600 border-red-600" : ""} w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center"  title="Like">
-                  <i class="fa-solid fa-heart text-xl ${item.isLiked === true ? "text-white" : ""}"></i>
+               <button onclick="handleLikeBtn(${item.id})" class="${item.isLiked === true ? "bg-red-600 border-red-600 text-white" : ""} w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center"  title="Like">
+                  <i class="fa-solid fa-heart text-xl"></i>
                </button>
-                <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Saved">
+                <button onclick="handleSavedBtn(${item.id})" class="${item.isBasket === true ? "bg-blue-600 border-blue-600 text-white" : ""} w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Saved">
                   <i class="fa-solid fa-bookmark  text-xl"></i>
                </button>
                 <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Info">
@@ -69,9 +72,33 @@ elInput.addEventListener("input", (event)=> {
 })
 // Search Part
 
+
 // Like buttons
 function handleLikeBtn(id){
     const findLikedObj = countrys.find((item) => item.id === id)
     findLikedObj.isLiked = !findLikedObj.isLiked
     renderCountries(countrys, elCountryList)
+    
+    elLikedCount.textContent = countrys.filter(item => item.isLiked === true).length
+    if(findLikedObj.isLiked === true){
+        elLikedCountWrapper.className = "w-[40px] h-[40px] rounded-full border-[2px] border-red-600 bg-red-600 text-white flex items-center justify-evenly"
+    }else{
+        elLikedCountWrapper.className = "w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-evenly"
+    }
 }
+// Like buttons
+
+// Saved buttons
+function handleSavedBtn(id){
+    const findSavedObj = countrys.find((item) => item.id === id)
+    findSavedObj.isBasket = !findSavedObj.isBasket
+    renderCountries(countrys, elCountryList)
+    
+    elSavedCount.textContent = countrys.filter(item => item.isBasket === true).length
+    if(findSavedObj.isBasket === true){
+        elsaved_count_wrapper.className = "w-[40px] h-[40px] rounded-full border-[2px] border-blue-600 bg-blue-600 text-white flex items-center justify-evenly"
+    }else{
+        elsaved_count_wrapper.className = "w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-evenly"
+    }
+}
+// Saved buttons

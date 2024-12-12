@@ -5,6 +5,8 @@ let elLikedCount = document.querySelector(".like_count")
 let elLikedCountWrapper = document.querySelector(".like_count_wrapper")
 let elSavedCount = document.querySelector(".savedCount")
 let elsaved_count_wrapper = document.querySelector(".saved_count_wrapper")
+let elModalWrapper = document.querySelector(".modal_wrapper")
+let innerModal = document.querySelector(".modal_inner")
 
 // Render countries Part
 function renderCountries(arr, list){ 
@@ -27,7 +29,7 @@ function renderCountries(arr, list){
                 <button onclick="handleSavedBtn(${item.id})" class="${item.isBasket === true ? "bg-blue-600 border-blue-600 text-white" : ""} w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Saved">
                   <i class="fa-solid fa-bookmark  text-xl"></i>
                </button>
-                <button class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Info">
+                <button onclick="handleMoreBtn(${item.id})" class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Info">
                   <i class="fa-solid fa-info text-xl"></i>
                </button>
            </div>
@@ -118,3 +120,30 @@ elsaved_count_wrapper.addEventListener("click", ()=> {
     renderCountries(savedItems, elCountryList)    
 })
 // Saved buttons
+
+
+// 
+function handleMoreBtn(id){
+    elModalWrapper.classList.remove("scale-0")
+    const infoCountry = countrys.find(item => item.id === id)
+    innerModal.innerHTML = `
+      <div class="flex items-center justify-between">
+        <div class="w-[50%]">
+           <img  src=${infoCountry.flag} alt=${infoCountry.name} width="100%" height="300"/>
+        </div>
+        <div class="w-[50%]">
+             <div class="p-5"> 
+             <h2 class="font-bold mb-2 text-[22px]">${infoCountry.name}</h2>
+             <p class="mb-2">Population: ${infoCountry.population}</p>
+             <p class="mb-2">Capital: ${infoCountry.capital}</p>
+           </div>
+        </div>
+      </div>
+    `
+}
+
+elModalWrapper.addEventListener("click", (event)=> {
+    if(event.target.id === "modal_wrapper_id"){
+        elModalWrapper.classList.add("scale-0")
+    }
+})

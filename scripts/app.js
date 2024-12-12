@@ -32,6 +32,9 @@ function renderCountries(arr, list){
                 <button onclick="handleMoreBtn(${item.id})" class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Info">
                   <i class="fa-solid fa-info text-xl"></i>
                </button>
+                <button onclick="handleDeleteBtn(${item.id})" class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Info">
+                <i class="fa-solid fa-trash-arrow-up text-xl text-red-700"></i>
+               </button>
            </div>
         `
         list.append(elCountryItem)
@@ -80,7 +83,7 @@ function handleLikeBtn(id){
     const findLikedObj = countrys.find((item) => item.id === id)
     findLikedObj.isLiked = !findLikedObj.isLiked
     renderCountries(countrys, elCountryList)
-    
+    renderInfoCountry(findLikedObj)
     elLikedCount.textContent = countrys.filter(item => item.isLiked === true).length
     if(findLikedObj.isLiked === true){
         elLikedCountWrapper.className = "w-[40px] h-[40px] rounded-full border-[2px] border-red-600 bg-red-600 text-white flex items-center justify-evenly"
@@ -105,7 +108,7 @@ function handleSavedBtn(id){
     const findSavedObj = countrys.find((item) => item.id === id)
     findSavedObj.isBasket = !findSavedObj.isBasket
     renderCountries(countrys, elCountryList)
-    
+    renderInfoCountry(findSavedObj)
     elSavedCount.textContent = countrys.filter(item => item.isBasket === true).length
     if(findSavedObj.isBasket === true){
         elsaved_count_wrapper.className = "w-[40px] h-[40px] rounded-full border-[2px] border-blue-600 bg-blue-600 text-white flex items-center justify-evenly"
@@ -122,24 +125,36 @@ elsaved_count_wrapper.addEventListener("click", ()=> {
 // Saved buttons
 
 
-// 
+// Info Country 
+function renderInfoCountry(obj){
+    innerModal.innerHTML = `
+    <div class="flex items-center justify-between">
+      <div class="w-[50%]">
+         <img  src=${obj.flag} alt=${obj.name} width="100%" height="300"/>
+      </div>
+      <div class="w-[50%]">
+           <div class="p-5"> 
+           <h2 class="font-bold mb-2 text-[22px]">${obj.name}</h2>
+           <p class="mb-2">Population: ${obj.population}</p>
+           <p class="mb-2">Capital: ${obj.capital}</p>
+         </div>
+           <div class="flex items-center justify-evenly p-2">
+             <button onclick="handleLikeBtn(${obj.id})" class="${obj.isLiked === true ? "bg-red-600 border-red-600 text-white" : ""} w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center"  title="Like">
+                <i class="fa-solid fa-heart text-xl"></i>
+             </button>
+              <button onclick="handleSavedBtn(${obj.id})" class="${obj.isBasket === true ? "bg-blue-600 border-blue-600 text-white" : ""} w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Saved">
+                <i class="fa-solid fa-bookmark  text-xl"></i>
+             </button>
+         </div>
+      </div>
+    </div>
+  `
+}
 function handleMoreBtn(id){
     elModalWrapper.classList.remove("scale-0")
     const infoCountry = countrys.find(item => item.id === id)
-    innerModal.innerHTML = `
-      <div class="flex items-center justify-between">
-        <div class="w-[50%]">
-           <img  src=${infoCountry.flag} alt=${infoCountry.name} width="100%" height="300"/>
-        </div>
-        <div class="w-[50%]">
-             <div class="p-5"> 
-             <h2 class="font-bold mb-2 text-[22px]">${infoCountry.name}</h2>
-             <p class="mb-2">Population: ${infoCountry.population}</p>
-             <p class="mb-2">Capital: ${infoCountry.capital}</p>
-           </div>
-        </div>
-      </div>
-    `
+    renderInfoCountry(infoCountry)
+
 }
 
 elModalWrapper.addEventListener("click", (event)=> {
@@ -147,3 +162,12 @@ elModalWrapper.addEventListener("click", (event)=> {
         elModalWrapper.classList.add("scale-0")
     }
 })
+// Info Country 
+
+
+// Delete Btn
+function handleDeleteBtn(id){
+    const findDeleteIndex = countrys.findIndex(item => item.id === id)
+    countrys.splice(findDeleteIndex, 1)
+    renderCountries(countrys, elCountryList)
+}

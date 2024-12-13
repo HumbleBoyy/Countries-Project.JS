@@ -7,6 +7,7 @@ let elSavedCount = document.querySelector(".savedCount")
 let elsaved_count_wrapper = document.querySelector(".saved_count_wrapper")
 let elModalWrapper = document.querySelector(".modal_wrapper")
 let innerModal = document.querySelector(".modal_inner")
+let elAddBtn = document.querySelector(".add_btn")
 
 // Render countries Part
 function renderCountries(arr, list){ 
@@ -33,7 +34,7 @@ function renderCountries(arr, list){
                   <i class="fa-solid fa-info text-xl"></i>
                </button>
                 <button onclick="handleDeleteBtn(${item.id})" class="w-[40px] h-[40px] rounded-full border-[2px] border-black flex items-center justify-center" title="Info">
-                <i class="fa-solid fa-trash-arrow-up text-xl text-red-700"></i>
+                <i class="fa-solid fa-eraser text-xl"></i>
                </button>
            </div>
         `
@@ -171,3 +172,50 @@ function handleDeleteBtn(id){
     countrys.splice(findDeleteIndex, 1)
     renderCountries(countrys, elCountryList)
 }
+
+
+// Add Btn
+elAddBtn.addEventListener("click", (event)=> {
+    elModalWrapper.classList.remove("scale-0")
+
+   innerModal.innerHTML = `
+     <form class="add_form w-full">
+        <input class="border-[2px] w-full mb-3 rounded-xl" placeholder="Enter country name" aria-label="Enter country name" name="countryName" required type="text"/>
+        <input class="border-[2px] w-full mb-3 rounded-xl" placeholder="Enter country name" aria-label="Enter country capital name" name="capitalName" required type="text"/>
+        <input class="border-[2px] w-full mb-1 rounded-xl" placeholder="Enter population" aria-label="Enter population" name="population" required type="number"/>
+
+        <label class="cursor-pointer">
+        <p class="text-green-600 mb-1 font-bold text-[1rem] underline">Choose file</p>
+        <input class="file_input hidden" required type="file"/>
+        </label>
+
+        <button class="w-full bg-green-600 p-2 text-white font-bold rounded-md">Add Country</button>
+     </form>
+   `  
+
+    let elAddCountryForm = document.querySelector(".add_form")
+    let elFileInput = document.querySelector(".file_input")
+
+    let imgSaveList = []
+
+    elFileInput.addEventListener("change", (e)=> {
+        imgSaveList.push(URL.createObjectURL(e.target.files[0]))
+    })
+    elAddCountryForm.addEventListener("submit", (event)=> {
+        event.preventDefault()
+        const data =  {
+            id: countrys.length + 1,
+            name: event.target.countryName.value,
+            capital: event.target.capitalName.value,
+            population: event.target.population.value,
+            flag: imgSaveList[0],
+            isLiked:false,
+            isBasket:false
+        }
+
+        countrys.unshift(data)
+        elModalWrapper.classList.add("scale-0")
+        renderCountries(countrys, elCountryList)
+    })
+})
+

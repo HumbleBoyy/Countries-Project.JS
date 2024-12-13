@@ -14,3 +14,10 @@ html{
     background-repeat: no-repeat;
     background-position: 32px center;
 }
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
